@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS words (
     word text,
     known boolean,
     date_known int,
+    added int,
     UNIQUE (language, word)
 );

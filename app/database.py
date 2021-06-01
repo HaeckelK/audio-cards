@@ -4,8 +4,6 @@ from datetime import timezone
 
 import psycopg2
 
-from structures import MemberStats
-
 
 def now() -> int:
     dt = datetime.datetime.now(timezone.utc)
@@ -19,7 +17,7 @@ class RecordExistsException(Exception):
     pass
 
 
-class PostgresDatabase(Database):
+class PostgresDatabase:
     def __init__(self) -> None:
         dbname = os.environ["POSTGRES_DB"]
         user = os.environ["POSTGRES_USER"]
@@ -32,20 +30,30 @@ class PostgresDatabase(Database):
         self.conn.close()
         return
 
-    def register_download_file(self, section: str, filename: str, download_timestamp: int) -> int:
+    def add_word(self, word: str) -> int:
         cur = self.conn.cursor()
+        language = "NOT IMPLEMENTED"
+        known = False
+        date_known = -1
         added = now()
         try:
             cur.execute(
-                "INSERT INTO files (section, filename, download_timestamp, import_status, added) \
+                "INSERT INTO words (language, word, known, date_known, added) \
 VALUES (%s, %s, %s, %s, %s) RETURNING id",
-                (section, filename, download_timestamp, "not_imported", added),
+                (language, word, known, date_known, added),
             )
         except psycopg2.errors.UniqueViolation:
             cur.close()
             self.conn.rollback()
             raise RecordExistsException
-        file_id = int(cur.fetchone()[0])
+        row_id = int(cur.fetchone()[0])
         self.conn.commit()
         cur.close()
-        return file_id
+        return row_id
+
+    def get_words(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM words;")
+        result = cur.fetchall()
+        cur.close()
+        return result
