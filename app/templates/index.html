@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Language Learning</title>
+  </head>
+  <body>
+    <h1>Language Learning</h1>
+    <h2>Words</h2>
+    {{ words }}
+    <h2>Add Word</h2>
+    <form name="addWordForm" action="/add_word" onsubmit="return validateForm()" method="post">
+      <input type="text" name="word">
+      <input type="submit" value="Submit">
+      </form>
+  <script>
+    function validateForm() {
+      var x = document.forms["addWordForm"]["word"].value;
+      if (x == "") {
+        alert("Word must be filled out");
+        return false;
+      }
+    }
+  </script>
+  </body>
+</html>
