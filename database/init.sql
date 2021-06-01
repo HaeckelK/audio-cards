@@ -1,37 +1,8 @@
-CREATE TABLE IF NOT EXISTS files (
+CREATE TABLE IF NOT EXISTS words (
     id SERIAL PRIMARY KEY,
-    section text,
-    filename text,
-    download_timestamp int,
-    import_status text,
-    added int,
-    UNIQUE (section, filename)
-);
-CREATE TABLE IF NOT EXISTS member_stats (
-    id SERIAL PRIMARY KEY,
-    file_id int REFERENCES files (id),
-    name text,
-    gamesPlayed int,
-    winRate int,
-    goals int,
-    assists int,
-    cleanSheetsDef int,
-    cleanSheetsGK int,
-    shotSuccessRate int,
-    passesMade int,
-    passSuccessRate int,
-    tacklesMade int,
-    tackleSuccessRate int,
-    proName text,
-    proPos int,
-    proStyle int,
-    proHeight int,
-    proNationality int,
-    proOverall int,
-    manOfTheMatch int,
-    redCards int,
-    favoritePosition text,
-    added int,
-    UNIQUE (name, gamesPlayed),
-    UNIQUE (name, file_id)
+    language text,
+    word text,
+    known boolean,
+    date_known int,
+    UNIQUE (language, word)
 );
