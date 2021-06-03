@@ -10,7 +10,7 @@
     {% endfor %}
     <h2>Words</h2>
     {% for word in words %}
-      {{ word.word }}
+      {{ word.word }} {{ word.language_id }}
     {% endfor %}
     <h2>Add Word</h2>
     <form name="addWordForm" action="/add_word" onsubmit="return validateForm()" method="post">

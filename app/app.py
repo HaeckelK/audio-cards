@@ -10,15 +10,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ["SQLALCHEMY_TRACK_MODI
 db = SQLAlchemy(app)
 
 
-# TODO unique (lang, word)
-class Word(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    word = db.Column(db.String(80), unique=False, nullable=False)
-
-    def __repr__(self):
-        return '<Word %r>' % self.word
-
-
 class Language(db.Model):
     id = db.Column(db.String(2), primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
@@ -27,15 +18,32 @@ class Language(db.Model):
         return '<Language %r>' % self.id
 
 
+# TODO unique (lang, word)
+class Word(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    word = db.Column(db.String(80), unique=False, nullable=False)
+    language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Word %r>' % self.word
+
+
 db.create_all() 
 db.session.commit()
 
 # TODO move crud to own module
-def add_language(code: str, name: str, session) -> None:
+def add_language(code: str, name: str, session) -> str:
     language = Language(id=code.lower(), name=name.lower())
     session.add(language)
     session.commit()
-    return
+    return language.id
+
+
+def add_word(text: str) -> int:
+    word = Word(word=text, language_id=9)
+    db.session.add(word)
+    db.session.commit()
+    return word.id
 
 add_language(code="DE", name="German", session=db.session)
 add_language(code="FR", name="French", session=db.session)
@@ -51,7 +59,5 @@ def index():
 @app.route("/add_word", methods=["POST"])
 def create_word():
     word_text = request.form['word']
-    word = Word(word=word_text)
-    db.session.add(word)
-    db.session.commit()
+    add_word(word_text)
     return redirect(url_for("index"))
