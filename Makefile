@@ -2,7 +2,7 @@ setup:
 	@echo "not implemented"
 
 up:
-	docker-compose up -d app database
+	docker-compose up -d app
 
 down:
 	docker-compose down --remove-orphans

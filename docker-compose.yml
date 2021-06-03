@@ -1,33 +1,14 @@
 version: "3.7"
 
-volumes:
-  postgres_data:
-
 services:
   app:
     build: .
     tty: true
     environment:
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRES_DB=$POSTGRES_DB
-      - POSTGRES_HOST=$POSTGRES_HOST
-      - FLASK_ENV=development
+      - FLASK_ENV=$FLASK_ENV
+      - SQLALCHEMY_DATABASE_URI=$SQLALCHEMY_DATABASE_URI
+      - SQLALCHEMY_TRACK_MODIFICATIONS=$SQLALCHEMY_TRACK_MODIFICATIONS
     ports:
       - 5000:5000
     volumes:
       - ./app:/app/
-    depends_on:
-      - database
-  database:
-    build:
-      context: ./database
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRES_DB=$POSTGRES_DB
-    ports:
-      - 5433:5432
-    restart: always
