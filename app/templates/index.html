@@ -1,8 +1,18 @@
 <html>
   <head>
     <title>Language Learning</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
   </head>
   <body>
+    <div class="container">
+      <nav>Navbar</nav>
+      <main>Main</main>
+      <div id="sidebar">Sidebar</div>
+      <div id="content1">Content1</div>
+      <div id="content2">Content2</div>
+      <div id="content3">Content3</div>
+      <footer>Footer</footer>
+    </div>
     <h1>Language Learning</h1>
     <h2>Languages</h2>
     {% for language in languages %}
