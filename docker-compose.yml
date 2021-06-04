@@ -9,6 +9,6 @@ services:
       - SQLALCHEMY_DATABASE_URI=$SQLALCHEMY_DATABASE_URI
       - SQLALCHEMY_TRACK_MODIFICATIONS=$SQLALCHEMY_TRACK_MODIFICATIONS
     ports:
-      - 5000:5000
+      - 127.0.0.1:5000:5000
     volumes:
       - ./app:/app/
