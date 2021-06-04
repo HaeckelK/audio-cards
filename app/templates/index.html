@@ -4,13 +4,25 @@
   </head>
   <body>
     <h1>Language Learning</h1>
+    <h2>Languages</h2>
+    {% for language in languages %}
+      {{ language.name }}
+    {% endfor %}
     <h2>Words</h2>
-    {{ words }}
+    {% for word in words %}
+      {{ word.word }} {{ word.language_id }}
+    {% endfor %}
     <h2>Add Word</h2>
     <form name="addWordForm" action="/add_word" onsubmit="return validateForm()" method="post">
       <input type="text" name="word">
       <input type="submit" value="Submit">
-      </form>
+    </form>
+
+    <h2>Sentences</h2>
+    {% for sentence in sentences %}
+    {{ sentence.language_id }} {{ sentence.text }}
+    {% endfor %}
+   
   <script>
     function validateForm() {
       var x = document.forms["addWordForm"]["word"].value;
