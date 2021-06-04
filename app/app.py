@@ -28,6 +28,12 @@ class Word(db.Model):
         return '<Word %r>' % self.word
 
 
+class Sentence(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
+    text = db.Column(db.String(250), nullable=False)
+
+
 db.create_all() 
 db.session.commit()
 
@@ -45,15 +51,27 @@ def add_word(text: str) -> int:
     db.session.commit()
     return word.id
 
+
+def add_sentence(text: str, language_id: int) -> int:
+    sentence = Sentence(text=text, language_id=language_id)
+    db.session.add(sentence)
+    db.session.commit() 
+    return sentence.id
+
+
 add_language(code="DE", name="German", session=db.session)
 add_language(code="FR", name="French", session=db.session)
+
+
+add_sentence(text="Das habe ich schon gesagt.", language_id=1)
 
 
 @app.route('/')
 def index():
     words = Word.query.all()
     languages = Language.query.all()
-    return render_template("index.html", words=words, languages=languages)
+    sentences = Sentence.query.all()
+    return render_template("index.html", words=words, languages=languages, sentences=sentences)
 
 
 @app.route("/add_word", methods=["POST"])

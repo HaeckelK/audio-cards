@@ -16,7 +16,13 @@
     <form name="addWordForm" action="/add_word" onsubmit="return validateForm()" method="post">
       <input type="text" name="word">
       <input type="submit" value="Submit">
-      </form>
+    </form>
+
+    <h2>Sentences</h2>
+    {% for sentence in sentences %}
+    {{ sentence.language_id }} {{ sentence.text }}
+    {% endfor %}
+   
   <script>
     function validateForm() {
       var x = document.forms["addWordForm"]["word"].value;
