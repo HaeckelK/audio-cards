@@ -1,38 +1,39 @@
 <html>
-  <head>
-    <title>Language Learning</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
-  </head>
-  <body>
-    <div class="container">
-      <nav>Navbar</nav>
-      <main>Main</main>
-      <div id="sidebar">Sidebar</div>
-      <div id="content1">Content1</div>
-      <div id="content2">Content2</div>
-      <div id="content3">Content3</div>
-      <footer>Footer</footer>
-    </div>
-    <h1>Language Learning</h1>
-    <h2>Languages</h2>
-    {% for language in languages %}
-      {{ language.name }}
-    {% endfor %}
-    <h2>Words</h2>
-    {% for word in words %}
-      {{ word.word }} {{ word.language_id }}
-    {% endfor %}
-    <h2>Add Word</h2>
-    <form name="addWordForm" action="/add_word" onsubmit="return validateForm()" method="post">
-      <input type="text" name="word">
-      <input type="submit" value="Submit">
-    </form>
 
-    <h2>Sentences</h2>
-    {% for sentence in sentences %}
-    {{ sentence.language_id }} {{ sentence.text }}
-    {% endfor %}
-   
+<head>
+  <title>Language Learning</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <nav>Language Learning</nav>
+    <main>
+      <h2>Languages</h2>
+      {% for language in languages %}
+      {{ language.name }}
+      {% endfor %}
+      <h2>Words</h2>
+      {% for word in words %}
+      {{ word.word }} {{ word.language_id }}
+      {% endfor %}
+      <h2>Add Word</h2>
+      <form name="addWordForm" action="/add_word" onsubmit="return validateForm()" method="post">
+        <input type="text" name="word">
+        <input type="submit" value="Submit">
+      </form>
+
+      <h2>Sentences</h2>
+      {% for sentence in sentences %}
+      {{ sentence.language_id }} {{ sentence.text }}
+      {% endfor %}
+    </main>
+    <div id="sidebar">Sidebar</div>
+    <div id="content1">Content1</div>
+    <div id="content2">Content2</div>
+    <div id="content3">Content3</div>
+    <footer>Footer</footer>
+  </div>
   <script>
     function validateForm() {
       var x = document.forms["addWordForm"]["word"].value;
@@ -42,5 +43,6 @@
       }
     }
   </script>
-  </body>
+</body>
+
 </html>
