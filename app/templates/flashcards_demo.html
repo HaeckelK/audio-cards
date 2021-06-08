@@ -1,11 +1,64 @@
 <html>
   <head>
     <title>Language Learning</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <style>div#vueApp {
+      padding: 1rem;
+      background: #CD545b;
+      display: inline-block;
+    }
+    
+    div.vue-comp {
+      height: 50px;
+      width: 50px;
+      margin: 0 1rem;
+      background: #236192;
+      display: inline-block;
+    }</style>
   </head>
   <body>
     <h1>Language Learning</h1>
     <h2>Flashcards Demo</h2>
     <p id="question">{{ question }}</p>
     <p id="answer">{{ answer }}</p>
+
+    <div id="vueApp">
+      <vue-title></vue-title>
+      <vue-question></vue-question>
+      <vue-comp></vue-comp>
+      <vue-comp></vue-comp>  
+    </div>
+    <script>
+      Vue.component('vue-comp', {
+        data: function () {
+          return {
+            something: false
+          }
+        },
+        template: '<div class="vue-comp"></div>'
+      });
+      Vue.component('vue-title', {
+        delimiters: ['{(', ')}'],
+        data: function () {
+          return {
+            title: "FlashCards Demo"
+          }
+        },
+        template: '<div class="vue-title"><h2>{( this.title )}</h2></div>'
+      });
+
+      Vue.component('vue-question', {
+        delimiters: ['{(', ')}'],
+        template: '<div class="vue-question">This is where the question goes.</div>'
+      });
+
+      let vueApp = new Vue({
+        el: '#vueApp',
+        created: function() {
+          
+        }
+      });
+    </script>
+
   </body>
 </html>
