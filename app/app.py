@@ -82,6 +82,14 @@ def create_word():
 
 
 from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class Hint:
+    name: str
+    text: str
+
 
 @dataclass
 class Question:
@@ -93,11 +101,13 @@ class Question:
 class Answer:
     question_id: int
     text: str
+    # TODO make it a dictionary instead of a list
+    hints: List[Hint]
 
 
 @app.route("/flashcards-demo")
 def flashcards_demo():
     answer_hinted = "D.. K.... i.. s......"
     question = Question(id=1, text="The cat is black.")
-    answer = Answer(question_id=question.id, text="Die Katze ist schwarz.")
+    answer = Answer(question_id=question.id, text="Die Katze ist schwarz.", hints=[Hint("first_letter", "D.. K.... i.. s.......")])
     return render_template("flashcards_demo.html", question=question, answer=answer)
