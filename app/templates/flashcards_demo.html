@@ -10,11 +10,14 @@
       <p id="question">{{ question.text }}</p>
     </div>
     <div id="answerDisplayArea" class="answerDisplayArea">
-      <p id="answer_hint">{{ answer.hints[0].text }}</p>
+      <p id="answer_hint" style="display:none">{{ answer.hints[0].text }}</p>
       <p id="answer" style="display:none">{{ answer.text }}</p>
     </div>
     <button id="answerRevealBtn">
       Reveal
+    </button>
+    <button id="hintRevealBtn">
+      Show Hint
     </button>
     <div id="answerFeedbackBtns" style="display:none">
       <button id="answerCorrectBtn">
@@ -32,7 +35,12 @@
     $("#answerRevealBtn").click(function(){
       $("#answer").show();
       $("#answer_hint").hide();
+      $("#hintRevealBtn").hide();
       $("#answerFeedbackBtns").show();
+      $(this).hide();
+    });
+    $("#hintRevealBtn").click(function(){
+      $("#answer_hint").show();
       $(this).hide();
     });
     $("#answerCorrectBtn").click(function(){
