@@ -6,6 +6,11 @@
   <body>
     <h1>Language Learning</h1>
     <h2>Flashcards Demo</h2>
+    <div id="steak">
+      {% for item in streak %}
+      <span>{{item}}</span>
+      {% endfor %}
+    </div>
     <div class="questionDisplayArea">
       <p id="question">{{ question.text }}</p>
     </div>

@@ -107,7 +107,8 @@ class Answer:
 
 @app.route("/flashcards-demo")
 def flashcards_demo():
-    answer_hinted = "D.. K.... i.. s......"
+    streak = "yyynnynyny"
     question = Question(id=1, text="The cat is black.")
-    answer = Answer(question_id=question.id, text="Die Katze ist schwarz.", hints=[Hint("first_letter", "D.. K.... i.. s.......")])
-    return render_template("flashcards_demo.html", question=question, answer=answer)
+    answer = Answer(question_id=question.id, text="Die Katze ist schwarz.",
+                    hints=[Hint("first_letter", "D.. K.... i.. s.......")])
+    return render_template("flashcards_demo.html", question=question, answer=answer, streak=streak)
