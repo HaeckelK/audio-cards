@@ -81,9 +81,23 @@ def create_word():
     return redirect(url_for("index"))
 
 
+from dataclasses import dataclass
+
+@dataclass
+class Question:
+    id: int
+    text: str
+
+
+@dataclass
+class Answer:
+    question_id: int
+    text: str
+
+
 @app.route("/flashcards-demo")
 def flashcards_demo():
-    answer = "Die Katze ist schwarz."
     answer_hinted = "D.. K.... i.. s......"
-    question = "The cat is black"
+    question = Question(id=1, text="The cat is black.")
+    answer = Answer(question_id=question.id, text="Die Katze ist schwarz.")
     return render_template("flashcards_demo.html", question=question, answer=answer)

@@ -1,11 +1,53 @@
 <html>
   <head>
     <title>Language Learning</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <h1>Language Learning</h1>
     <h2>Flashcards Demo</h2>
-    <p id="question">{{ question }}</p>
-    <p id="answer">{{ answer }}</p>
+    <div class="questionDisplayArea">
+      <p id="question">{{ question.text }}</p>
+    </div>
+    <button id="answerRevealBtn">
+      Reveal
+    </button>
+    <div id="answerDisplayArea" class="answerDisplayArea" style="display:none">
+      <p id="answer">{{ answer.text }}</p>
+    </div>
+    <div id="answerFeedbackBtns" style="display:none">
+      <button id="answerCorrectBtn">
+        Yes
+      </button>
+      <button id="answerWrongBtn">
+        No
+      </button>
+    </div>
+    <button id="nextQuestionBtn" style="display:none">
+      Next Question
+    </button>
+  <script>
+  $(document).ready(function(){
+    $("#answerRevealBtn").click(function(){
+      $("#answerDisplayArea").show();
+      $("#answerFeedbackBtns").show();
+      $(this).hide();
+    });
+    $("#answerCorrectBtn").click(function(){
+      alert("answer correct API call goes here");
+      $("#nextQuestionBtn").show();
+      $("#answerFeedbackBtns").hide();
+    });
+    $("#answerWrongBtn").click(function(){
+      alert("answer wrong API call goes here");
+      $("#nextQuestionBtn").show();
+      $("#answerFeedbackBtns").hide();
+    });
+    $("#nextQuestionBtn").click(function(){
+      alert("next question API call goes here");
+      location.reload();
+    });
+  });
+  </script>
   </body>
 </html>
