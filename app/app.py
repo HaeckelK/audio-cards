@@ -79,3 +79,11 @@ def create_word():
     word_text = request.form['word']
     add_word(word_text)
     return redirect(url_for("index"))
+
+
+@app.route("/flashcards-demo")
+def flashcards_demo():
+    answer = "Die Katze ist schwarz."
+    answer_hinted = "D.. K.... i.. s......"
+    question = "The cat is black"
+    return render_template("flashcards_demo.html", question=question, answer=answer)
