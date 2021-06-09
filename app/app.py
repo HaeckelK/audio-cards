@@ -82,7 +82,14 @@ def create_word():
 
 
 from dataclasses import dataclass
-from typing import List
+from typing import List, Tuple
+
+
+@dataclass
+class TranslationCard:
+    id: int
+    question: str
+    answer: str
 
 
 @dataclass
@@ -105,10 +112,19 @@ class Answer:
     hints: List[Hint]
 
 
-@app.route("/flashcards-demo")
-def flashcards_demo():
-    streak = "yyynnynyny"
+def get_current_answer_streak() -> str:
+    return "yyynnynyny"
+
+
+def get_next_question() -> Tuple[Question, Answer]:
     question = Question(id=1, text="The cat is black.")
     answer = Answer(question_id=question.id, text="Die Katze ist schwarz.",
                     hints=[Hint("first_letter", "D.. K.... i.. s.......")])
+    return question, answer
+
+
+@app.route("/flashcards-demo")
+def flashcards_demo():
+    streak = get_current_answer_streak()
+    question, answer = get_next_question()
     return render_template("flashcards_demo.html", question=question, answer=answer, streak=streak)
