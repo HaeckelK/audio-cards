@@ -106,7 +106,7 @@ class Question:
 
 @dataclass
 class Answer:
-    question_id: int
+    id: int
     text: str
     # TODO make it a dictionary instead of a list
     hints: List[Hint]
@@ -117,10 +117,21 @@ def get_current_answer_streak() -> str:
 
 
 def get_next_question() -> Tuple[Question, Answer]:
-    question = Question(id=1, text="The cat is black.")
-    answer = Answer(question_id=question.id, text="Die Katze ist schwarz.",
-                    hints=[Hint("first_letter", "D.. K.... i.. s.......")])
+    card = TranslationCard(id=1, question="The cat is black.", answer="Die Katze ist schwarz.")
+    question = Question(id=card.id, text=card.question)
+
+    answer = Answer(id=card.id, text=card.answer,
+                    hints=[create_first_letter_hint(card.answer)])
     return question, answer
+
+
+def create_first_letter_hint(text: str) -> Hint:
+    hint_words = []
+    for word in text.split(" "):
+        hint_word = word[0] + "_"*(len(word) - 1)
+        hint_words.append(hint_word)
+    hint_text = " ".join(hint_words)
+    return Hint("first_letter", hint_text)
 
 
 @app.route("/flashcards-demo")
